@@ -1,0 +1,19 @@
+[package]
+name = "graph_plotter"
+version = "0.1.0"
+authors = ["Dao Simone, Sanna Giacomo"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cairo-rs = "0.15.11"
+gtk = "0.15.5"
+gio = "0.15.11"
+plotters = "0.3.1"
+plotters-cairo = "0.3.1"
+plot_graph = {git = "https://github.com/Giacomo-Sanna/plot_graph.git"}
+
+[dependencies.plotters-bitmap]
+default_features = false
+git = "https://github.com/plotters-rs/plotters"
