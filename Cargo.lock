@@ -61,9 +61,9 @@ checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bumpalo"
-version = "3.10.0"
+version = "3.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "37ccbd214614c6783386c1af30caf03192f17891059cecc394b4fb119e363de3"
+checksum = "0d261e256854913907f67ed06efbc3338dfe6179796deefc1ff763fc1aee5535"
 
 [[package]]
 name = "bytemuck"
@@ -244,9 +244,9 @@ checksum = "b365fabc795046672053e29c954733ec3b05e4be654ab130fe8f1f94d7051f35"
 
 [[package]]
 name = "cxx"
-version = "1.0.88"
+version = "1.0.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "322296e2f2e5af4270b54df9e85a02ff037e271af20ba3e7fe1575515dc840b8"
+checksum = "bc831ee6a32dd495436e317595e639a587aa9907bef96fe6e6abc290ab6204e9"
 dependencies = [
  "cc",
  "cxxbridge-flags",
@@ -256,9 +256,9 @@ dependencies = [
 
 [[package]]
 name = "cxx-build"
-version = "1.0.88"
+version = "1.0.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "017a1385b05d631e7875b1f151c9f012d37b53491e2a87f65bff5c262b2111d8"
+checksum = "94331d54f1b1a8895cd81049f7eaaaef9d05a7dcb4d1fd08bf3ff0806246789d"
 dependencies = [
  "cc",
  "codespan-reporting",
@@ -271,15 +271,15 @@ dependencies = [
 
 [[package]]
 name = "cxxbridge-flags"
-version = "1.0.88"
+version = "1.0.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c26bbb078acf09bc1ecda02d4223f03bdd28bd4874edcb0379138efc499ce971"
+checksum = "48dcd35ba14ca9b40d6e4b4b39961f23d835dbb8eed74565ded361d93e1feb8a"
 
 [[package]]
 name = "cxxbridge-macro"
-version = "1.0.88"
+version = "1.0.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "357f40d1f06a24b60ae1fe122542c1fb05d28d32acb2aed064e84bc2ad1e252e"
+checksum = "81bbeb29798b407ccd82a3324ade1a7286e0d29851475990b612670f6f5124d2"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -600,16 +600,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gif"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "80792593675e051cf94a4b111980da2ba60d4a83e43e0048c5693baab3977045"
-dependencies = [
- "color_quant",
- "weezl",
-]
-
-[[package]]
 name = "gio"
 version = "0.15.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -700,12 +690,15 @@ name = "graph_plotter"
 version = "0.1.0"
 dependencies = [
  "cairo-rs",
+ "chrono",
+ "colorous",
  "gio",
  "gtk",
+ "minifb",
  "plot_graph",
- "plotters 0.3.4",
- "plotters-bitmap 0.3.3",
+ "plotters",
  "plotters-cairo",
+ "rand",
 ]
 
 [[package]]
@@ -828,9 +821,9 @@ checksum = "bc0000e42512c92e31c2252315bda326620a4e034105e900c98ec492fa077b3e"
 
 [[package]]
 name = "js-sys"
-version = "0.3.58"
+version = "0.3.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c3fac17f7123a73ca62df411b1bf727ccc805daa070338fda671c86dac1bdc27"
+checksum = "445dde2150c55e483f3d8416706b97ec8e8237c307e5b7b4b8dd15e6af2a0730"
 dependencies = [
  "wasm-bindgen",
 ]
@@ -1079,13 +1072,11 @@ checksum = "1df8c4ec4b0627e53bdf214615ad287367e482558cf84b109250b37464dc03ae"
 [[package]]
 name = "plot_graph"
 version = "0.1.0"
-source = "git+https://github.com/Giacomo-Sanna/plot_graph.git#8e9acdd69b8233e0726f814f18eaba2680e39c39"
 dependencies = [
  "chrono",
  "colorous",
  "minifb",
- "plotters 0.3.5",
- "plotters-bitmap 0.3.3",
+ "plotters",
  "rand",
 ]
 
@@ -1101,29 +1092,10 @@ dependencies = [
  "lazy_static",
  "num-traits",
  "pathfinder_geometry",
- "plotters-backend 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
- "plotters-bitmap 0.3.2",
- "plotters-svg 0.3.3",
- "ttf-parser 0.15.2",
- "wasm-bindgen",
- "web-sys",
-]
-
-[[package]]
-name = "plotters"
-version = "0.3.5"
-source = "git+https://github.com/plotters-rs/plotters#acf5158c6f49b8bfe8a5431c64b0867a1a8b36d1"
-dependencies = [
- "chrono",
- "font-kit",
- "image",
- "lazy_static",
- "num-traits",
- "pathfinder_geometry",
- "plotters-backend 0.3.4 (git+https://github.com/plotters-rs/plotters)",
- "plotters-bitmap 0.3.3",
- "plotters-svg 0.3.4",
- "ttf-parser 0.17.1",
+ "plotters-backend",
+ "plotters-bitmap",
+ "plotters-svg",
+ "ttf-parser",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -1135,29 +1107,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "193228616381fecdc1224c62e96946dfbc73ff4384fba576e052ff8c1bea8142"
 
 [[package]]
-name = "plotters-backend"
-version = "0.3.4"
-source = "git+https://github.com/plotters-rs/plotters#acf5158c6f49b8bfe8a5431c64b0867a1a8b36d1"
-
-[[package]]
 name = "plotters-bitmap"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c4a1f21490a6cf4a84c272ad20bd7844ed99a3178187a4c5ab7f2051295beef"
 dependencies = [
- "gif 0.11.4",
+ "gif",
  "image",
- "plotters-backend 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "plotters-bitmap"
-version = "0.3.3"
-source = "git+https://github.com/plotters-rs/plotters#acf5158c6f49b8bfe8a5431c64b0867a1a8b36d1"
-dependencies = [
- "gif 0.12.0",
- "image",
- "plotters-backend 0.3.4 (git+https://github.com/plotters-rs/plotters)",
+ "plotters-backend",
 ]
 
 [[package]]
@@ -1167,7 +1124,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ad329f140235af4d41913a220f2c9ab5da42d0d09132435fd3d981ad647325db"
 dependencies = [
  "cairo-rs",
- "plotters-backend 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "plotters-backend",
 ]
 
 [[package]]
@@ -1176,15 +1133,7 @@ version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f9a81d2759aae1dae668f783c308bc5c8ebd191ff4184aaa1b37f65a6ae5a56f"
 dependencies = [
- "plotters-backend 0.3.4 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "plotters-svg"
-version = "0.3.4"
-source = "git+https://github.com/plotters-rs/plotters#acf5158c6f49b8bfe8a5431c64b0867a1a8b36d1"
-dependencies = [
- "plotters-backend 0.3.4 (git+https://github.com/plotters-rs/plotters)",
+ "plotters-backend",
 ]
 
 [[package]]
@@ -1534,12 +1483,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b3e06c9b9d80ed6b745c7159c40b311ad2916abb34a49e9be2653b90db0d8dd"
 
 [[package]]
-name = "ttf-parser"
-version = "0.17.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "375812fa44dab6df41c195cd2f7fecb488f6c09fbaafb62807488cefab642bff"
-
-[[package]]
 name = "ucd-trie"
 version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1594,9 +1537,9 @@ checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.81"
+version = "0.2.84"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7c53b543413a17a202f4be280a7e5c62a1c69345f5de525ee64f8cfdbc954994"
+checksum = "31f8dcbc21f30d9b8f2ea926ecb58f6b91192c17e9d33594b3df58b2007ca53b"
 dependencies = [
  "cfg-if",
  "wasm-bindgen-macro",
@@ -1604,13 +1547,13 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-backend"
-version = "0.2.81"
+version = "0.2.84"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5491a68ab4500fa6b4d726bd67408630c3dbe9c4fe7bda16d5c82a1fd8c7340a"
+checksum = "95ce90fd5bcc06af55a641a86428ee4229e44e07033963a2290a8e241607ccb9"
 dependencies = [
  "bumpalo",
- "lazy_static",
  "log",
+ "once_cell",
  "proc-macro2",
  "quote",
  "syn",
@@ -1619,9 +1562,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-futures"
-version = "0.4.31"
+version = "0.4.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de9a9cec1733468a8c657e57fa2413d2ae2c0129b95e87c5b72b8ace4d13f31f"
+checksum = "f219e0d211ba40266969f6dbdd90636da12f75bee4fc9d6c23d1260dadb51454"
 dependencies = [
  "cfg-if",
  "js-sys",
@@ -1631,9 +1574,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.81"
+version = "0.2.84"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c441e177922bc58f1e12c022624b6216378e5febc2f0533e41ba443d505b80aa"
+checksum = "4c21f77c0bedc37fd5dc21f897894a5ca01e7bb159884559461862ae90c0b4c5"
 dependencies = [
  "quote",
  "wasm-bindgen-macro-support",
@@ -1641,9 +1584,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.81"
+version = "0.2.84"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d94ac45fcf608c1f45ef53e748d35660f168490c10b23704c7779ab8f5c3048"
+checksum = "2aff81306fcac3c7515ad4e177f521b5c9a15f2b08f4e32d823066102f35a5f6"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1654,9 +1597,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.81"
+version = "0.2.84"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a89911bd99e5f3659ec4acf9c4d93b0a90fe4a2a11f15328472058edc5261be"
+checksum = "0046fef7e28c3804e5e38bfa31ea2a0f73905319b677e57ebe37e49358989b5d"
 
 [[package]]
 name = "wayland-client"
@@ -1733,9 +1676,9 @@ dependencies = [
 
 [[package]]
 name = "web-sys"
-version = "0.3.58"
+version = "0.3.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2fed94beee57daf8dd7d51f2b15dc2bcde92d7a72304cdf662a4371008b71b90"
+checksum = "e33b99f4b23ba3eec1a53ac264e35a755f00e966e0065077d6027c0f575b0b97"
 dependencies = [
  "js-sys",
  "wasm-bindgen",

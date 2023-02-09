@@ -10,10 +10,12 @@ edition = "2021"
 cairo-rs = "0.15.11"
 gtk = "0.15.5"
 gio = "0.15.11"
-plotters = "0.3.1"
+minifb = "0.23.0"
+chrono = "0.4.23"
+colorous = "1.0.9"
 plotters-cairo = "0.3.1"
-plot_graph = {git = "https://github.com/Giacomo-Sanna/plot_graph.git"}
+rand = "0.8.5"
+plotters = "0.3.1"
+#plot_graph = {git = "https://github.com/Giacomo-Sanna/plot_graph.git"}
+plot_graph = { path = "../plot_graph/" }
 
-[dependencies.plotters-bitmap]
-default_features = false
-git = "https://github.com/plotters-rs/plotters"
