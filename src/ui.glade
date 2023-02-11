@@ -209,12 +209,9 @@ Proportioned</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">button</property>
+                  <object class="GtkSwitch" id="Trader">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                    <property name="margin-top">8</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>

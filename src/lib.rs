@@ -17,9 +17,9 @@ const TITLE: &str = "title"; //TODO
 const FONT: &'static (&str,u32) = &("Montserrat", 14);
 const CANDLE_SIZE_DIVIDER: f64 = 65.;
 
-pub fn gtk_plotter(data: Vec<Vec<HashMap<GoodKind, Vec<f32>>>>) {
+pub fn gtk_plotter(data: Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>,trader_liq: Rc<HashMap<GoodKind, Vec<f32>>>) {
 
-    let data = Rc::new(data);
+    // let data = Rc::new(data);
 
     let application = gtk::Application::new(
         Some("com.example"), // TODO
@@ -28,16 +28,17 @@ pub fn gtk_plotter(data: Vec<Vec<HashMap<GoodKind, Vec<f32>>>>) {
 
     // let data_clone = data.clone();
     // let liq_clone = liq.clone();
+    // let trader_liq = trader_liq.clone();
     application.connect_activate(move |app| {
-        build_ui(app,&data);
+        build_ui(app,data.clone(),trader_liq.clone());
     });
 
     application.run();
 }
 
-fn build_ui(app: &gtk::Application, data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) {
+fn build_ui(app: &gtk::Application, data: Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>, trader_liq: Rc<HashMap<GoodKind, Vec<f32>>>) {
 
-    let liq = Rc::new(data_split(data));
+    let liq = Rc::new(data_split(&data));
 
     let builder = gtk::Builder::from_string(GLADE_UI_SOURCE);
     let window = builder.object::<gtk::Window>("MainWindow").unwrap();
@@ -77,6 +78,7 @@ fn build_ui(app: &gtk::Application, data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>
 
     let yaxis = Rc::new(RefCell::new(builder.object::<gtk::Switch>("YAxis").unwrap()));
     let is_start_changing = Rc::new(RefCell::new(true));
+    let trader_switch = Rc::new(RefCell::new(builder.object::<gtk::Switch>("Trader").unwrap()));
 
 
     window.set_application(Some(app));
@@ -127,6 +129,9 @@ fn build_ui(app: &gtk::Application, data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>
 
 
 
+
+
+
     // todo func
     
 
@@ -136,6 +141,10 @@ fn build_ui(app: &gtk::Application, data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>
     let liq_max = max_liq(&liq);
     
     println!("- {:?}", liq_max);
+
+    let trader_liq_max = t_max_liq(&trader_liq);
+
+    println!("- {}", trader_liq_max);
 
     let data_min = Rc::new(data_min);
     let data_max = Rc::new(data_max);
@@ -148,7 +157,7 @@ fn build_ui(app: &gtk::Application, data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>
     plot_drawing_area(&yaxis,&start_state,&end_state,&market_state,&is_start_changing,data.clone(),1,GoodKind::USD,&buy_usd,&data_min,&data_max,);
     plot_drawing_area(&yaxis,&start_state,&end_state,&market_state,&is_start_changing,data.clone(),1,GoodKind::YEN,&buy_yen,&data_min,&data_max,);
     plot_drawing_area(&yaxis,&start_state,&end_state,&market_state,&is_start_changing,data.clone(),1,GoodKind::YUAN,&buy_yuan,&data_min,&data_max,);
-    plot_liquidity_drawing_area(&yaxis,&start_state,&end_state,&market_state,&is_start_changing,liq.clone(),&liquidity,&liq_max,);
+    plot_liquidity_drawing_area(&yaxis,&start_state,&end_state,&market_state,&is_start_changing,liq.clone(),&liquidity,&liq_max,trader_liq, &trader_switch,trader_liq_max,);
 
     window.show_all();
 
@@ -293,15 +302,23 @@ fn plot_liquidity_drawing_area(
     // market_index: usize,
     draw_area: &Rc<RefCell<DrawingArea>>,
     liq_max: &Rc<Vec<f32>>,
+    trader_liq: Rc<HashMap<GoodKind, Vec<f32>>>,
+    trader_switch: &Rc<RefCell<gtk::Switch>>,
+    trader_liq_max: f32,
+
 ) {
+    // let _trader_switch_clone = trader_switch.clone(); // why not in the main
     let start_cloned = start_state.clone();
     let end_cloned = end_state.clone();
     let is_start_changing_clone = is_start_changing.clone();
     let market_clone = market_state.clone();
     let liq_max_clone = liq_max.clone();
+    // let trader_liq_max_clone = trader_liq_max.clone();
     let yaxis_clone = yaxis.clone();
+    let trader_switch_clone = trader_switch.clone();
 
     draw_area.borrow().connect_draw(move |widget, cr| {
+        let trader_sw = trader_switch_clone.borrow().is_active();
         let sw = yaxis_clone.borrow().is_active();
         let mut start = start_cloned.borrow().value() as usize;
         let mut end = end_cloned.borrow().value() as usize;
@@ -319,33 +336,67 @@ fn plot_liquidity_drawing_area(
 
         let yaxis;
         if !sw {yaxis = None;}
-        else {yaxis = Some((0., liq_max_clone[market_index]));}
+        else {
+            if !trader_sw {yaxis = Some((0., liq_max_clone[market_index]));}
+            else {
+                yaxis = Some((0.,trader_liq_max));
+            } 
+        }  
 
         let w = widget.allocated_width();
         let h = widget.allocated_height();
         let backend = CairoBackend::new(cr, (w as u32, h as u32)).unwrap();
-        liquidity_plot::plot(
-            vec![
-                &liq[market_index][0].clone()[start..end],
-                &liq[market_index][1].clone()[start..end],
-                &liq[market_index][2].clone()[start..end],
-                &liq[market_index][3].clone()[start..end],
-            ],
-            vec![
-                format!("USD"),
-                format!("YEN"),
-                format!("YUAN"),
-                format!("EUR"),
-            ],
-            backend,
-            Some(start),
-            yaxis,
-            10,
-            16,
-            *FONT,
-        )
-        .unwrap();
-        Inhibit(false)
+
+        if trader_sw {
+            liquidity_plot::plot(
+                vec![
+                    &trader_liq[&GoodKind::USD].clone()[start..end],
+                    &trader_liq[&GoodKind::YEN].clone()[start..end],
+                    &trader_liq[&GoodKind::YUAN].clone()[start..end],
+                    &trader_liq[&GoodKind::EUR].clone()[start..end],
+                ],
+                vec![
+                    format!("USD"),
+                    format!("YEN"),
+                    format!("YUAN"),
+                    format!("EUR"),
+                ],
+                backend,
+                Some(start),
+                yaxis,
+                10,
+                16,
+                *FONT,
+            )
+            .unwrap();
+            Inhibit(false)
+        }
+        else {
+            liquidity_plot::plot(
+                vec![
+                    &liq[market_index][0].clone()[start..end],
+                    &liq[market_index][1].clone()[start..end],
+                    &liq[market_index][2].clone()[start..end],
+                    &liq[market_index][3].clone()[start..end],
+                ],
+                vec![
+                    format!("USD"),
+                    format!("YEN"),
+                    format!("YUAN"),
+                    format!("EUR"),
+                ],
+                backend,
+                Some(start),
+                yaxis,
+                10,
+                16,
+                *FONT,
+            )
+            .unwrap();
+            Inhibit(false)
+        }
+
+        
     });
 
     let draw_area_clone = draw_area.clone();
@@ -363,6 +414,11 @@ fn plot_liquidity_drawing_area(
         *is_start_changing_clone.borrow_mut() = false;
         draw_area_clone.borrow().queue_draw();
     });
+
+    let draw_area_clone = draw_area.clone();
+    trader_switch.borrow_mut().connect_changed_active(move |_| {
+        draw_area_clone.borrow().queue_draw();
+    }); // not main?
 
     let draw_area_clone = draw_area.clone();
     yaxis.borrow_mut().connect_changed_active(move |_| {
@@ -432,4 +488,18 @@ fn data_split(data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) -> Vec<Vec<Vec<f
         }
     }
     liq
+}
+
+fn t_max_liq(trader_liq: &Rc<HashMap<GoodKind, Vec<f32>>>) -> f32 {
+    let mut curr_max_y;
+    let mut liq_max: f32 = 0.;
+    let gks = vec![GoodKind::USD, GoodKind::YEN,GoodKind::YUAN,GoodKind::EUR];
+    for  gk in gks{ // goodkind
+        curr_max_y = helpers::f32_max(&trader_liq[&gk]);
+        if liq_max <= curr_max_y {
+            liq_max = curr_max_y;
+        }
+    }
+
+    liq_max
 }
