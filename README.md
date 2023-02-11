@@ -13,4 +13,4 @@ For more detail about Plotters, see the core project repository at this [link](h
 
 ## Screenshot
 
-![screenshot](../gtk_plotter/images/UI.png)
+![screenshot](./images/UI.png)
