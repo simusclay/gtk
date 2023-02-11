@@ -1,8 +1,8 @@
 use std::cell::RefCell;
-use std::cmp::Eq;
 use std::collections::HashMap;
 use std::rc::Rc;
 use gtk::{prelude::*, DrawingArea};
+use market_common::good::good_kind::GoodKind;
 use plotters_cairo::CairoBackend;
 
 use plot_graph::liquidity_plot;
@@ -17,12 +17,22 @@ const TITLE: &str = "title"; //TODO
 const FONT: &'static (&str,u32) = &("Montserrat", 14);
 const CANDLE_SIZE_DIVIDER: f64 = 65.;
 
-#[derive(PartialEq, Eq, Hash, Debug)]
-enum GoodKind {
-    USD,
-    YEN,
-    YUAN,
-    EUR,
+pub fn gtk_plotter(data: Vec<Vec<HashMap<GoodKind, Vec<f32>>>>) {
+
+    let data = Rc::new(data);
+
+    let application = gtk::Application::new(
+        Some("com.example"), // TODO
+        Default::default(),
+    );
+
+    // let data_clone = data.clone();
+    // let liq_clone = liq.clone();
+    application.connect_activate(move |app| {
+        build_ui(app,&data);
+    });
+
+    application.run();
 }
 
 fn build_ui(app: &gtk::Application, data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) {
@@ -273,226 +283,6 @@ fn plot_drawing_area(
 
 }
 
-fn gtk_plotter(data: Vec<Vec<HashMap<GoodKind, Vec<f32>>>>) {
-
-    // let mut data: Vec<Vec<HashMap<GoodKind, Vec<f32>>>> = Vec::new();
-    // // let mut liq: Vec<Vec<Vec<f32>>> = vec![
-    // //     // bose
-    // //     vec![
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //     ],
-    // //     // bfb
-    // //     vec![
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //     ],
-    // //     vec![
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //         generate_data_series(100., 2000, -0.0985, 0.1),
-    // //     ],
-    // // ];
-
-    // data.push(vec![HashMap::new(), HashMap::new(), HashMap::new()]);
-    // // sell
-    // // data.get_mut(0)
-    // //     .unwrap()
-    // //     .get_mut(0)
-    // //     .unwrap()
-    // //     .insert(GoodKind::EUR, generate_data_series(100., 200, -0.0985, 0.1));
-    // data.get_mut(0)
-    //     .unwrap()
-    //     .get_mut(0)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(1.1, 2000, -0.0985, 0.1));
-    // data.get_mut(0)
-    //     .unwrap()
-    //     .get_mut(0)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(0.8, 2000, -0.0985, 0.1));
-    // data.get_mut(0).unwrap().get_mut(0).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(0.5, 2000, -0.0985, 0.1),
-    // ); //buy
-    //    // data.get_mut(0)
-    //    //     .unwrap()
-    //    //     .get_mut(1)
-    //    //     .unwrap()
-    //    //     .insert(GoodKind::EUR, generate_data_series(100., 200, -0.0985, 0.1));
-    // data.get_mut(0)
-    //     .unwrap()
-    //     .get_mut(1)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(0)
-    //     .unwrap()
-    //     .get_mut(1)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(0).unwrap().get_mut(1).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-
-    // data.get_mut(0)
-    //     .unwrap()
-    //     .get_mut(2)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(0)
-    //     .unwrap()
-    //     .get_mut(2)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(0).unwrap().get_mut(2).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-    // data.get_mut(0).unwrap().get_mut(2).unwrap().insert(
-    //     GoodKind::EUR,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-
-    // //other market
-    // //sell
-    // data.push(vec![HashMap::new(), HashMap::new(), HashMap::new()]);
-    // // data.get_mut(1)
-    // //     .unwrap()
-    // //     .get_mut(0)
-    // //     .unwrap()
-    // //     .insert(GoodKind::EUR, generate_data_series(100., 200, -0.0985, 0.1));
-    // data.get_mut(1)
-    //     .unwrap()
-    //     .get_mut(0)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(1)
-    //     .unwrap()
-    //     .get_mut(0)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(1).unwrap().get_mut(0).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // ); // buy
-    // // data.get_mut(1)
-    // //     .unwrap()
-    // //     .get_mut(1)
-    // //     .unwrap()
-    // //     .insert(GoodKind::EUR, generate_data_series(100., 200, -0.0985, 0.1));
-    // data.get_mut(1)
-    //     .unwrap()
-    //     .get_mut(1)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(1)
-    //     .unwrap()
-    //     .get_mut(1)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(1).unwrap().get_mut(1).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-    // data.get_mut(1)
-    //     .unwrap()
-    //     .get_mut(2)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(1)
-    //     .unwrap()
-    //     .get_mut(2)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(1).unwrap().get_mut(2).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-    // data.get_mut(1).unwrap().get_mut(2).unwrap().insert(
-    //     GoodKind::EUR,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-
-    // data.push(vec![HashMap::new(), HashMap::new(), HashMap::new()]);
-
-    // data.get_mut(2)
-    //     .unwrap()
-    //     .get_mut(0)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(2)
-    //     .unwrap()
-    //     .get_mut(0)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(2).unwrap().get_mut(0).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // ); // buy
-    // // data.get_mut(1)
-    // //     .unwrap()
-    // //     .get_mut(1)
-    // //     .unwrap()
-    // //     .insert(GoodKind::EUR, generate_data_series(100., 200, -0.0985, 0.1));
-    // data.get_mut(2)
-    //     .unwrap()
-    //     .get_mut(1)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(2)
-    //     .unwrap()
-    //     .get_mut(1)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(2).unwrap().get_mut(1).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-    // data.get_mut(2)
-    //     .unwrap()
-    //     .get_mut(2)
-    //     .unwrap()
-    //     .insert(GoodKind::USD, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(2)
-    //     .unwrap()
-    //     .get_mut(2)
-    //     .unwrap()
-    //     .insert(GoodKind::YEN, generate_data_series(100., 2000, -0.0985, 0.1));
-    // data.get_mut(2).unwrap().get_mut(2).unwrap().insert(
-    //     GoodKind::YUAN,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-    // data.get_mut(2).unwrap().get_mut(2).unwrap().insert(
-    //     GoodKind::EUR,
-    //     generate_data_series(100., 2000, -0.0985, 0.1),
-    // );
-
-    let data = Rc::new(data);
-    // let liq = Rc::new(liq);
-
-
-
-
-    let application = gtk::Application::new(
-        Some("com.example"), // TODO
-        Default::default(),
-    );
-
-    // let data_clone = data.clone();
-    // let liq_clone = liq.clone();
-    application.connect_activate(move |app| {
-        build_ui(app,&data);
-    });
-
-    application.run();
-}
-
 fn plot_liquidity_drawing_area(
     yaxis: &Rc<RefCell<gtk::Switch>>,
     start_state: &Rc<RefCell<gtk::Scale>>,
@@ -586,40 +376,10 @@ fn plot_liquidity_drawing_area(
     });
 }
 
-/*
-
-    let mut data: Vec<Vec<HashMap<GoodKind, Vec<f32>>>>
-
-        data ->
-
-            0 (bose) ->
-
-                0 (buy) ->
-                    vec<f32>
-
-                1 (sell) ->
-                    vec<f32>
-
-            1 (bfb) ->  ...
-            2 (doge) -> ...
-
-
-    let liq: Vec<Vec<Vec<f32>>>
-
-        liq ->
-
-            0 (bose) ->
-                0(EUR) ->
-                    vec<f32>
-                1(USD)
-
-*/
-
-#[allow(unused_assignments)]
 fn max_data(data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) -> (Vec<f32>,Vec<f32>) {
 
-    let mut curr_max_y: f32 = 0.;
-    let mut curr_min_y: f32 = f32::MAX;
+    let mut curr_max_y: f32;
+    let mut curr_min_y: f32;
     let v: Vec<GoodKind> = vec![GoodKind::USD, GoodKind::YEN, GoodKind::YUAN];
     let mut data_min: Vec<f32> = vec![f32::MAX,f32::MAX,f32::MAX];
     let mut data_max: Vec<f32> = vec![0.,0.,0.];
@@ -644,10 +404,9 @@ fn max_data(data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) -> (Vec<f32>,Vec<f
     }
     (data_min,data_max)
 }
-#[allow(unused_assignments)]
 
 fn max_liq(liq: &Rc<Vec<Vec<Vec<f32>>>>) -> Vec<f32> {
-    let mut curr_max_y = 0.;
+    let mut curr_max_y;
     let mut liq_max: Vec<f32> = vec![0.,0.,0.];
     for market in 0..3 { // market
         for gk in 0..4 { // goodkind
@@ -660,12 +419,8 @@ fn max_liq(liq: &Rc<Vec<Vec<Vec<f32>>>>) -> Vec<f32> {
     liq_max
 }
 
-
-
-
 fn data_split(data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) -> Vec<Vec<Vec<f32>>>{
     let mut liq: Vec<Vec<Vec<f32>>> = vec![vec![Vec::new();4];3];
-    let op: usize = 2;
     for (i,market) in data.iter().enumerate() {
         for (gk,v) in  market[2].iter(){
             match gk {
