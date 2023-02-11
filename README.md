@@ -1,15 +1,16 @@
-# Example Project for Plotters + GTK
+# Trader bot and market visualizer made with GTK
 
-This is an example project that shows how to integrate Plotters into a GTK application. This example is a simple visualization of the PDF 2 dimensional gaussian distribution.
+This is a plot visualizer that shows the variation of prices (sell price the first graph row, buy price the second one) and the liquidity of the markets and eventually of the trader.
+
+- The top-left button allows to switch between all the different markets.
+- The "Y-Axis Proportioned" switch allows you to resize all the graphs fixing the y-axis
+- The two scales let you change the days you are currently displaying
+- The "Trader goods" switch substitutes the market goods with the trader goods
+- The InteractiveUI button starts an interactive version of the graphs (commands are below the button)
+- All the buttons below the graphs start the interactive version of that particular graph
 
 For more detail about Plotters, see the core project repository at this [link](https://github.com/plotters-rs/plotters).
 
-## Build and Run
-
-```bash
-cargo run
-```
-
 ## Screenshot
 
-![screenshot](https://plotters-rs.github.io/images/plotters-gtk-example.png)
+![screenshot](../gtk_plotter/images/UI.png)

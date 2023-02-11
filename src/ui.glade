@@ -44,6 +44,7 @@
                   <object class="GtkComboBoxText" id="MarketComboBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="valign">center</property>
                     <property name="margin-left">8</property>
                     <property name="margin-top">8</property>
                     <property name="active">0</property>
@@ -69,6 +70,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <property name="valign">center</property>
                         <property name="margin-top">8</property>
                         <property name="label" translatable="yes">Y-Axis 
 Proportioned</property>
@@ -83,6 +85,8 @@ Proportioned</property>
                       <object class="GtkSwitch" id="YAxis">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="margin-left">4</property>
                         <property name="margin-top">8</property>
                       </object>
                       <packing>
@@ -103,7 +107,7 @@ Proportioned</property>
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="margin-right">72</property>
+                    <property name="margin-right">50</property>
                     <child>
                       <object class="GtkBox">
                         <property name="width-request">300</property>
@@ -115,6 +119,7 @@ Proportioned</property>
                             <property name="width-request">300</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="valign">center</property>
                             <property name="adjustment">Start</property>
                             <property name="round-digits">0</property>
                             <property name="digits">0</property>
@@ -129,6 +134,7 @@ Proportioned</property>
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="valign">center</property>
                             <property name="margin-top">8</property>
                             <property name="label" translatable="yes">StartingDay</property>
                           </object>
@@ -154,6 +160,7 @@ Proportioned</property>
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <property name="valign">center</property>
                             <property name="margin-top">8</property>
                             <property name="label" translatable="yes">EndingDay</property>
                           </object>
@@ -168,6 +175,7 @@ Proportioned</property>
                             <property name="width-request">300</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
+                            <property name="valign">center</property>
                             <property name="adjustment">End</property>
                             <property name="round-digits">0</property>
                             <property name="digits">0</property>
@@ -198,7 +206,8 @@ Proportioned</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <property name="margin-left">40</property>
+                    <property name="valign">center</property>
+                    <property name="margin-left">50</property>
                     <property name="margin-top">8</property>
                   </object>
                   <packing>
@@ -209,9 +218,27 @@ Proportioned</property>
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-right">4</property>
+                    <property name="margin-top">8</property>
+                    <property name="label" translatable="yes">Trader
+goods</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkSwitch" id="Trader">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="margin-right">18</property>
+                    <property name="margin-top">8</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -307,7 +334,7 @@ Proportioned</property>
                     <property name="vexpand">True</property>
                     <child>
                       <object class="GtkButton" id="SellUSDbtn">
-                        <property name="label" translatable="yes">sell_usd</property>
+                        <property name="label" translatable="yes">Interactive sell USD</property>
                         <property name="width-request">400</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -322,7 +349,7 @@ Proportioned</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="SellYENbtn">
-                        <property name="label" translatable="yes">sell_yen</property>
+                        <property name="label" translatable="yes">Interactive sell YEN</property>
                         <property name="width-request">400</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -338,7 +365,7 @@ Proportioned</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="SellYUANbtn">
-                        <property name="label" translatable="yes">sell_yuan</property>
+                        <property name="label" translatable="yes">Interactive sell YUAN</property>
                         <property name="width-request">400</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -421,7 +448,7 @@ Proportioned</property>
                     <property name="vexpand">True</property>
                     <child>
                       <object class="GtkButton" id="BuyUSDbtn">
-                        <property name="label" translatable="yes">buy_usd</property>
+                        <property name="label" translatable="yes">Interactive buy USD</property>
                         <property name="width-request">400</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -436,7 +463,7 @@ Proportioned</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="BuyYENbtn">
-                        <property name="label" translatable="yes">buy_yen</property>
+                        <property name="label" translatable="yes">Interactive buy YEN</property>
                         <property name="width-request">400</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -452,7 +479,7 @@ Proportioned</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="BuyYUANbtn">
-                        <property name="label" translatable="yes">buy_yuan</property>
+                        <property name="label" translatable="yes">Interactive buy YUAN</property>
                         <property name="width-request">400</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -508,7 +535,7 @@ Proportioned</property>
                     <property name="vexpand">True</property>
                     <child>
                       <object class="GtkButton" id="Liqbtn">
-                        <property name="label" translatable="yes">interactive liquidity</property>
+                        <property name="label" translatable="yes">interactive goods</property>
                         <property name="width-request">1212</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -544,6 +571,7 @@ Proportioned</property>
                 <property name="margin-left">37</property>
                 <property name="margin-bottom">34</property>
                 <property name="label" translatable="yes">InteractiveUI Instructions:
+
 ←/→ :
 	Previous/next series
 ↑/↓ :
@@ -558,7 +586,7 @@ P :
 	Start / Stop
 R :
 	Restart 
- Esc :
+Esc :
 	Exit</property>
               </object>
               <packing>
