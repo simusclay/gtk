@@ -1,5 +1,5 @@
 [package]
-name = "graph_plotter"
+name = "gtk_plotter"
 version = "0.1.0"
 authors = ["Dao Simone, Sanna Giacomo"]
 edition = "2021"
