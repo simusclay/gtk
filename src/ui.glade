@@ -508,7 +508,7 @@ Proportioned</property>
                     <property name="vexpand">True</property>
                     <child>
                       <object class="GtkButton" id="Liqbtn">
-                        <property name="label" translatable="yes">liquidity</property>
+                        <property name="label" translatable="yes">interactive liquidity</property>
                         <property name="width-request">1212</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
