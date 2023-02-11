@@ -247,6 +247,12 @@ fn build_ui(
     let liq_max = max_liq(&liq);
     let trader_liq_max = t_max_liq(&trader_liq);
 
+    println!("data_min [BFB,BOSE,DOGE]: {:?}", data_min);
+    println!("data_max [BFB,BOSE,DOGE]: {:?}", data_max);
+    println!("liquidity [BFB,BOSE,DOGE]: {:?}", liq_max);
+    println!("trader: {:?}", trader_liq_max);
+
+
     let data_min = Rc::new(data_min);
     let data_max = Rc::new(data_max);
     let liq_max = Rc::new(liq_max);
@@ -625,7 +631,7 @@ fn max_data(data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) -> (Vec<f32>, Vec<
     for market in 0..data.len() {
         //market
 
-        for op in 0..data[market].len() {
+        for op in 0..data[market].len()-1 { // -1 to cut off liquidity
             // sell -> usd
 
             for gk in v.iter() {
