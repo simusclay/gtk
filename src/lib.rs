@@ -11,10 +11,10 @@ use ::plot::candlestick_chart;
 use ::plot::helpers;
 
 const GLADE_UI_SOURCE: &'static str = include_str!("ui.glade");
-const TITLE: &str = "TASE plotter"; //TODO
+const TITLE: &str = "TASE plotter";
 const FONT: &'static (&str, u32) = &("Montserrat", 16);
 const CANDLE_SIZE_DIVIDER: f64 = 65.;
-const MARGIN: u32 = 8; //39
+const MARGIN: u32 = 8;
 const LABEL_AREA_SIZE: (u32,u32) = (20,40);
 const LIQ_MARGIN: u32 = 12;
 const LIQ_LABEL_AREA_SIZE: (u32,u32) = (20,50);
@@ -25,7 +25,7 @@ pub fn gtk_plotter(
 ) {
 
     let application = gtk::Application::new(
-        Some("com.example"), // TODO
+        Some("com.example"),
         Default::default(),
     );
 
@@ -559,6 +559,7 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
+                Some(5),
                 LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
                 *FONT,
@@ -582,6 +583,7 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
+                Some(5),
                 LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
                 *FONT,
