@@ -16,5 +16,5 @@ colorous = "1.0.9"
 plotters-cairo = "0.3.1"
 rand = "0.8.5"
 plotters = "0.3.1"
-plot_graph = {git = "https://github.com/Giacomo-Sanna/plot_graph.git"}
+plot = {git = "https://github.com/Giacomo-Sanna/plot.git"}
 market_common = { version = "1.0.10", registry = "kellnr", package = "unitn_market_2022" }

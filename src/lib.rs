@@ -5,17 +5,19 @@ use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 
-use plot_graph::interactive_chart;
-use plot_graph::liquidity_plot;
-use plot_graph::{candles::plot, helpers};
+use ::plot::interactive_chart;
+use ::plot::bar_chart;
+use ::plot::candlestick_chart;
+use ::plot::helpers;
 
 const GLADE_UI_SOURCE: &'static str = include_str!("ui.glade");
 const TITLE: &str = "TASE plotter"; //TODO
 const FONT: &'static (&str, u32) = &("Montserrat", 16);
 const CANDLE_SIZE_DIVIDER: f64 = 65.;
-const MARGIN: u32 = 9;
-const LIQ_MARGIN: u32 = 50;
-const LABEL_AREA_SIZE: u32 = 1;
+const MARGIN: u32 = 8; //39
+const LABEL_AREA_SIZE: (u32,u32) = (20,40);
+const LIQ_MARGIN: u32 = 12;
+const LIQ_LABEL_AREA_SIZE: (u32,u32) = (20,50);
 
 pub fn gtk_plotter(
     data: Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>,
@@ -442,13 +444,13 @@ fn plot_drawing_area(
             op_string = "Buy"
         }
 
-        plot(
+        candlestick_chart::plot(
             &data[market_index][op][&gk].clone()[start..end],
             candle_size,
             format!("{} {:?}", &op_string, &gk).as_str(),
             backend,
             LABEL_AREA_SIZE,
-            MARGIN + 30,
+            MARGIN,
             400,
             *FONT,
             Some(start),
@@ -541,7 +543,7 @@ fn plot_liquidity_drawing_area(
         let backend = CairoBackend::new(cr, (w as u32, h as u32)).unwrap();
 
         if trader_sw {
-            liquidity_plot::plot(
+            bar_chart::plot(
                 vec![
                     &trader_liq[&GoodKind::USD].clone()[start..end],
                     &trader_liq[&GoodKind::YEN].clone()[start..end],
@@ -557,14 +559,14 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
-                LABEL_AREA_SIZE,
+                LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
                 *FONT,
             )
             .unwrap();
             Inhibit(false)
         } else {
-            liquidity_plot::plot(
+            bar_chart::plot(
                 vec![
                     &liq[market_index][0].clone()[start..end],
                     &liq[market_index][1].clone()[start..end],
@@ -580,7 +582,7 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
-                LABEL_AREA_SIZE,
+                LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
                 *FONT,
             )
@@ -631,7 +633,7 @@ fn max_data(data: &Rc<Vec<Vec<HashMap<GoodKind, Vec<f32>>>>>) -> (Vec<f32>, Vec<
     for market in 0..data.len() {
         //market
 
-        for op in 0..data[market].len()-1 { // -1 to cut off liquidity
+        for op in 0..data[market].len()-1 { // -1 to cut of liquidity
             // sell -> usd
 
             for gk in v.iter() {
