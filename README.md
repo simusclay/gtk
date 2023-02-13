@@ -1,4 +1,4 @@
-# Trader bot and market visualizer made with GTK
+# Trader bot and market visualizer made with GTK 
 
 This is a plot visualizer that shows the variation of prices (sell price the first graph row, buy price the second one) and the liquidity of the markets and eventually of the trader.
 
