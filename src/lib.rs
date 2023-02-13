@@ -542,6 +542,10 @@ fn plot_liquidity_drawing_area(
         let h = widget.allocated_height();
         let backend = CairoBackend::new(cr, (w as u32, h as u32)).unwrap();
 
+        let mut x_max_labels = Some((end as f32).log10() as usize + 1);
+        if end >= 1000 {x_max_labels = Some(20/x_max_labels.unwrap())}
+        else {x_max_labels = None}
+
         if trader_sw {
             bar_chart::plot(
                 vec![
@@ -559,8 +563,8 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
-                Some(5),
-                None,
+                Some(10),
+                x_max_labels,
                 LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
                 *FONT,
@@ -584,8 +588,8 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
-                Some(5),
-                None,
+                Some(10),
+                x_max_labels,
                 LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
                 *FONT,
