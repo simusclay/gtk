@@ -249,10 +249,10 @@ fn build_ui(
     let liq_max = max_liq(&liq);
     let trader_liq_max = t_max_liq(&trader_liq);
 
-    println!("data_min [BFB,BOSE,DOGE]: {:?}", data_min);
-    println!("data_max [BFB,BOSE,DOGE]: {:?}", data_max);
-    println!("liquidity [BFB,BOSE,DOGE]: {:?}", liq_max);
-    println!("trader: {:?}", trader_liq_max);
+    // println!("data_min [BFB,BOSE,DOGE]: {:?}", data_min);
+    // println!("data_max [BFB,BOSE,DOGE]: {:?}", data_max);
+    // println!("liquidity [BFB,BOSE,DOGE]: {:?}", liq_max);
+    // println!("trader: {:?}", trader_liq_max);
 
 
     let data_min = Rc::new(data_min);
@@ -563,7 +563,7 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
-                Some(10),
+                None,
                 x_max_labels,
                 LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
@@ -588,7 +588,7 @@ fn plot_liquidity_drawing_area(
                 backend,
                 Some(start),
                 yaxis,
-                Some(10),
+                None,
                 x_max_labels,
                 LIQ_LABEL_AREA_SIZE,
                 LIQ_MARGIN,
