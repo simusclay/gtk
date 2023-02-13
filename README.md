@@ -13,4 +13,4 @@ For more detail about Plotters, see the core project repository at this [link](h
 
 ## Screenshot
 
-![screenshot](./images/UI.png)
+![screenshot](./images/visualizer.png)
