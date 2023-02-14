@@ -14,9 +14,9 @@ const GLADE_UI_SOURCE: &'static str = include_str!("ui.glade");
 const TITLE: &str = "TASE plotter";
 const FONT: &'static (&str, u32) = &("Montserrat", 16);
 const CANDLE_SIZE_DIVIDER: f64 = 65.;
-const MARGIN: u32 = 8;
+const MARGIN: u32 = 24;
 const LABEL_AREA_SIZE: (u32,u32) = (20,40);
-const LIQ_MARGIN: u32 = 12;
+const LIQ_MARGIN: u32 = 26;
 const LIQ_LABEL_AREA_SIZE: (u32,u32) = (20,50);
 
 pub fn gtk_plotter(
